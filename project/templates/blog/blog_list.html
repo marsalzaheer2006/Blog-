@@ -1,0 +1,169 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Blog Posts - Arsal's Blog{% endblock %}
+
+{% block description %}Explore all blog posts on Arsal's Blog - diverse topics, fresh perspectives, and engaging content{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-blog me-3 text-primary"></i>Blog Posts
+            </h1>
+            <p class="lead text-muted">Explore thoughts, ideas, and stories that matter</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'blog_create' %}" class="btn btn-primary btn-lg mt-3">
+                    <i class="fas fa-plus me-2"></i>Write New Post
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    {% if page_obj %}
+        <div class="row">
+            {% for post in page_obj %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <article class="card blog-card h-100">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
+                    {% else %}
+                        <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(45deg, #3498db, #2c3e50);">
+                            <i class="fas fa-image fa-3x text-white opacity-50"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">
+                            <a href="{% url 'blog_detail' post.pk %}" class="text-decoration-none">
+                                {{ post.title }}
+                            </a>
+                        </h5>
+                        
+                        <p class="card-text text-muted flex-grow-1">
+                            {% if post.excerpt %}
+                                {{ post.excerpt|truncatewords:25 }}
+                            {% else %}
+                                {{ post.content|truncatewords:25 }}
+                            {% endif %}
+                        </p>
+                        
+                        <div class="blog-meta mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        <i class="fas fa-user me-1"></i>{{ post.author.username }}
+                                    </small>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>{{ post.created_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <a href="{% url 'blog_detail' post.pk %}" class="btn btn-primary">
+                                <i class="fas fa-arrow-right me-1"></i>Read More
+                            </a>
+                            
+                            {% if user == post.author %}
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'blog_edit' post.pk %}">
+                                                <i class="fas fa-edit me-2"></i>Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="{% url 'blog_delete' post.pk %}">
+                                                <i class="fas fa-trash me-2"></i>Delete
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <nav aria-label="Blog pagination">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">
+                                    <i class="fas fa-angle-double-left"></i> First
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <i class="fas fa-angle-left"></i> Previous
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                    Next <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                                    Last <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+        
+    {% else %}
+        <!-- No Posts Message -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-inbox fa-4x text-muted mb-4"></i>
+                <h3>No Blog Posts Yet</h3>
+                <p class="text-muted mb-4">Be the first to share your thoughts and create the first blog post!</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'blog_create' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus me-2"></i>Create First Post
+                    </a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Join & Write
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

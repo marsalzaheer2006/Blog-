@@ -1,0 +1,206 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    {% if post %}Edit Post{% else %}Create New Post{% endif %} - Arsal's Blog
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Back Button -->
+            <div class="mb-4">
+                {% if post %}
+                    <a href="{% url 'blog_detail' post.pk %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Post
+                    </a>
+                {% else %}
+                    <a href="{% url 'blog_list' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Blog
+                    </a>
+                {% endif %}
+            </div>
+            
+            <!-- Form Card -->
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-4">
+                    <h2 class="mb-0 text-center">
+                        <i class="fas fa-pen me-3"></i>
+                        {% if post %}
+                            Edit Blog Post
+                        {% else %}
+                            Create New Blog Post
+                        {% endif %}
+                    </h2>
+                </div>
+                
+                <div class="card-body p-5">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Title Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-heading me-2 text-primary"></i>Post Title *
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.title.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Choose a compelling title that captures your post's essence</div>
+                        </div>
+                        
+                        <!-- Excerpt Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.excerpt.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-quote-left me-2 text-primary"></i>Excerpt
+                            </label>
+                            {{ form.excerpt }}
+                            {% if form.excerpt.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.excerpt.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">A brief description of your post (optional but recommended for SEO)</div>
+                        </div>
+                        
+                        <!-- Content Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.content.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-align-left me-2 text-primary"></i>Post Content *
+                            </label>
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.content.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Share your thoughts, ideas, and stories</div>
+                        </div>
+                        
+                        <!-- Featured Image Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.featured_image.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-image me-2 text-primary"></i>Featured Image
+                            </label>
+                            {% if post.featured_image %}
+                                <div class="mb-3">
+                                    <img src="{{ post.featured_image.url }}" alt="Current featured image" 
+                                         class="img-thumbnail" style="max-height: 200px;">
+                                    <div class="form-text">Current featured image</div>
+                                </div>
+                            {% endif %}
+                            {{ form.featured_image }}
+                            {% if form.featured_image.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.featured_image.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Upload an eye-catching image for your post (optional)</div>
+                        </div>
+                        
+                        <!-- Published Status -->
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                {{ form.is_published }}
+                                <label class="form-check-label fw-bold" for="{{ form.is_published.id_for_label }}">
+                                    <i class="fas fa-eye me-2 text-primary"></i>Publish immediately
+                                </label>
+                            </div>
+                            <div class="form-text">Uncheck to save as draft</div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex gap-3 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="fas fa-save me-2"></i>
+                                {% if post %}Update Post{% else %}Create Post{% endif %}
+                            </button>
+                            
+                            {% if post %}
+                                <a href="{% url 'blog_detail' post.pk %}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </a>
+                            {% else %}
+                                <a href="{% url 'blog_list' %}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Writing Tips -->
+            <div class="card mt-4 border-0 bg-light">
+                <div class="card-body">
+                    <h5 class="mb-3">
+                        <i class="fas fa-lightbulb text-warning me-2"></i>Writing Tips
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Use clear, engaging headlines
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Write compelling excerpts
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Break text into paragraphs
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Use high-quality images
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Proofread before publishing
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Share personal insights
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Character counter for excerpt
+document.addEventListener('DOMContentLoaded', function() {
+    const excerptField = document.getElementById('{{ form.excerpt.id_for_label }}');
+    if (excerptField) {
+        const maxLength = 300;
+        const counter = document.createElement('div');
+        counter.className = 'form-text';
+        excerptField.parentNode.appendChild(counter);
+        
+        function updateCounter() {
+            const remaining = maxLength - excerptField.value.length;
+            counter.textContent = `${remaining} characters remaining`;
+            counter.style.color = remaining < 50 ? '#dc3545' : '#6c757d';
+        }
+        
+        excerptField.addEventListener('input', updateCounter);
+        updateCounter();
+    }
+});
+</script>
+{% endblock %}

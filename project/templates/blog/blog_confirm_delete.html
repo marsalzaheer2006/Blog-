@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Delete Post - Arsal's Blog{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <!-- Back Button -->
+            <div class="mb-4">
+                <a href="{% url 'blog_detail' post.pk %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Post
+                </a>
+            </div>
+            
+            <!-- Delete Confirmation Card -->
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-danger text-white py-4">
+                    <h2 class="mb-0 text-center">
+                        <i class="fas fa-exclamation-triangle me-3"></i>Confirm Deletion
+                    </h2>
+                </div>
+                
+                <div class="card-body p-5 text-center">
+                    <!-- Warning Icon -->
+                    <div class="mb-4">
+                        <i class="fas fa-trash-alt fa-4x text-danger"></i>
+                    </div>
+                    
+                    <!-- Warning Message -->
+                    <h4 class="mb-3">Are you sure you want to delete this post?</h4>
+                    <p class="text-muted mb-4">This action cannot be undone. The post will be permanently removed from the blog.</p>
+                    
+                    <!-- Post Preview -->
+                    <div class="card bg-light border-0 mb-4">
+                        <div class="card-body">
+                            {% if post.featured_image %}
+                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" 
+                                     class="img-thumbnail mb-3" style="max-height: 150px;">
+                            {% endif %}
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text text-muted">
+                                {% if post.excerpt %}
+                                    {{ post.excerpt|truncatewords:20 }}
+                                {% else %}
+                                    {{ post.content|truncatewords:20 }}
+                                {% endif %}
+                            </p>
+                            <div class="text-muted">
+                                <small>
+                                    <i class="fas fa-calendar me-1"></i>{{ post.created_at|date:"M d, Y" }}
+                                    <i class="fas fa-user ms-3 me-1"></i>{{ post.author.username }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <form method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg me-3">
+                            <i class="fas fa-trash me-2"></i>Yes, Delete Post
+                        </button>
+                    </form>
+                    
+                    <a href="{% url 'blog_detail' post.pk %}" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Additional Warning -->
+            <div class="alert alert-warning mt-4" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-info-circle fa-2x me-3"></i>
+                    <div>
+                        <strong>Note:</strong> Once deleted, this post cannot be recovered. Consider saving a draft or unpublishing instead if you might want to restore it later.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TWEET 
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mt-4">WELCOME TO DJANGO PROJECT</h1>
+
+<h2>
+    {% if form.instance.pk %}
+    Edit Tweet 
+    {% else %} 
+    Create Tweet 
+    {% endif %}
+</h2>
+
+<form method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-warning" type="submit">Submit</button>
+    <a href="{% url 'tweet_list' %}">Back to Tweet List</a>
+</form>
+
+
+
+
+{% endblock %}

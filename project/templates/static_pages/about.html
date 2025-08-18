@@ -1,0 +1,172 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}About - Arsal's Blog{% endblock %}
+
+{% block description %}Learn more about Arsal's Blog - our mission, vision, and the story behind this platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-user-circle me-3 text-primary"></i>About Arsal's Blog
+            </h1>
+            <p class="lead text-muted">Discover the story behind our blogging community</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- About Card -->
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-5">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-md-4 text-center">
+                            <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 150px; height: 150px;">
+                                <i class="fas fa-pen-nib fa-4x text-white"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="mb-3">Welcome to Arsal's Blog</h2>
+                            <p class="lead">A place where thoughts, ideas, and experiences come to life through the power of words.</p>
+                            <p>This blog is a personal journey of discovery, learning, and sharing. Here, you'll find diverse content ranging from technology insights to personal reflections, all aimed at inspiring meaningful conversations and connections.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Mission Section -->
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <h3 class="mb-4">
+                                <i class="fas fa-bullseye text-primary me-2"></i>Our Mission
+                            </h3>
+                            <p>Our mission is to create a platform where authentic voices can be heard, where complex ideas can be explored in depth, and where readers can find both inspiration and practical insights for their own journeys.</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <i class="fas fa-lightbulb fa-3x text-warning mb-3"></i>
+                                        <h5>Inspire</h5>
+                                        <p class="text-muted">Share ideas that spark creativity and innovation</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <i class="fas fa-users fa-3x text-success mb-3"></i>
+                                        <h5>Connect</h5>
+                                        <p class="text-muted">Build a community of like-minded individuals</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                                        <h5>Learn</h5>
+                                        <p class="text-muted">Continuously grow through shared experiences</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- What You'll Find Section -->
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <h3 class="mb-4">
+                                <i class="fas fa-compass text-primary me-2"></i>What You'll Find Here
+                            </h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3">
+                                            <i class="fas fa-laptop-code text-primary me-2"></i>
+                                            <strong>Technology Insights:</strong> Latest trends, tutorials, and tech discussions
+                                        </li>
+                                        <li class="mb-3">
+                                            <i class="fas fa-heart text-danger me-2"></i>
+                                            <strong>Personal Stories:</strong> Life experiences and lessons learned
+                                        </li>
+                                        <li class="mb-3">
+                                            <i class="fas fa-plane text-info me-2"></i>
+                                            <strong>Travel Adventures:</strong> Explorations and cultural discoveries
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3">
+                                            <i class="fas fa-book text-success me-2"></i>
+                                            <strong>Learning Resources:</strong> Educational content and tutorials
+                                        </li>
+                                        <li class="mb-3">
+                                            <i class="fas fa-rocket text-warning me-2"></i>
+                                            <strong>Innovation Ideas:</strong> Creative projects and entrepreneurship
+                                        </li>
+                                        <li class="mb-3">
+                                            <i class="fas fa-comments text-purple me-2"></i>
+                                            <strong>Community Discussions:</strong> Engaging conversations and debates
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center bg-light p-4 rounded">
+                        <h4 class="mb-3">Join Our Community</h4>
+                        <p class="mb-4">Ready to be part of something meaningful? Join us in creating content that matters.</p>
+                        <div class="d-flex gap-3 justify-content-center">
+                            {% if not user.is_authenticated %}
+                                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-user-plus me-2"></i>Join Now
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'blog_list' %}" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-book-open me-2"></i>Read Our Blog
+                            </a>
+                            <a href="{% url 'contact' %}" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-envelope me-2"></i>Get in Touch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-primary text-white border-0">
+                <div class="card-body py-5">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-4">
+                            <i class="fas fa-blog fa-3x mb-3"></i>
+                            <h3 class="mb-1">{{ blog_count|default:"0" }}</h3>
+                            <p class="mb-0">Blog Posts</p>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h3 class="mb-1">{{ user_count|default:"0" }}</h3>
+                            <p class="mb-0">Community Members</p>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <i class="fas fa-eye fa-3x mb-3"></i>
+                            <h3 class="mb-1">{{ view_count|default:"0" }}</h3>
+                            <p class="mb-0">Page Views</p>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <i class="fas fa-calendar fa-3x mb-3"></i>
+                            <h3 class="mb-1">2024</h3>
+                            <p class="mb-0">Year Founded</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

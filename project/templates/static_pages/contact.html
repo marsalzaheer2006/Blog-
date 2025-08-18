@@ -1,0 +1,243 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Contact - Arsal's Blog{% endblock %}
+
+{% block description %}Get in touch with Arsal's Blog team. We'd love to hear from you!{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-envelope me-3 text-primary"></i>Contact Us
+            </h1>
+            <p class="lead text-muted">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="row">
+                <!-- Contact Form -->
+                <div class="col-md-8 mb-4">
+                    <div class="card shadow-lg border-0 h-100">
+                        <div class="card-header bg-primary text-white py-4">
+                            <h3 class="mb-0">
+                                <i class="fas fa-paper-plane me-2"></i>Send us a Message
+                            </h3>
+                        </div>
+                        
+                        <div class="card-body p-4">
+                            <form method="post" class="contact-form">
+                                {% csrf_token %}
+                                
+                                <!-- Name Field -->
+                                <div class="mb-4">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">
+                                        <i class="fas fa-user me-2 text-primary"></i>Full Name *
+                                    </label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger mt-1">{{ form.name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Email Field -->
+                                <div class="mb-4">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label fw-bold">
+                                        <i class="fas fa-envelope me-2 text-primary"></i>Email Address *
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="text-danger mt-1">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Subject Field -->
+                                <div class="mb-4">
+                                    <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
+                                        <i class="fas fa-tag me-2 text-primary"></i>Subject *
+                                    </label>
+                                    {{ form.subject }}
+                                    {% if form.subject.errors %}
+                                        <div class="text-danger mt-1">{{ form.subject.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Message Field -->
+                                <div class="mb-4">
+                                    <label for="{{ form.message.id_for_label }}" class="form-label fw-bold">
+                                        <i class="fas fa-comment me-2 text-primary"></i>Message *
+                                    </label>
+                                    {{ form.message }}
+                                    {% if form.message.errors %}
+                                        <div class="text-danger mt-1">{{ form.message.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">
+                                <i class="fas fa-info-circle text-primary me-2"></i>Get in Touch
+                            </h4>
+                            
+                            <!-- Contact Methods -->
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                         style="width: 40px; height: 40px;">
+                                        <i class="fas fa-envelope text-white"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Email</strong><br>
+                                        <a href="mailto:muhammadarsalzaheer@gmail.com" class="text-decoration-none">arsalzaheer@gmail.com</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                         style="width: 40px; height: 40px;">
+                                        <i class="fas fa-clock text-white"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Response Time</strong><br>
+                                        <span class="text-muted">Within 24 hours</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                         style="width: 40px; height: 40px;">
+                                        <i class="fas fa-globe text-white"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Location</strong><br>
+                                        <span class="text-muted">Worldwide</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="mb-4">
+                                <h5 class="mb-3">Follow Us</h5>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Additional Info -->
+                            <div class="alert alert-info">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                <strong>Quick Tip:</strong> For faster responses, please be specific about your inquiry in the subject line.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card border-0">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">
+                                <i class="fas fa-question-circle text-primary me-2"></i>Frequently Asked Questions
+                            </h3>
+                            
+                            <div class="accordion" id="faqAccordion">
+                                <!-- FAQ Item 1 -->
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#faq1" aria-expanded="false">
+                                            How can I contribute to the blog?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            You can contribute by registering for an account and creating your own blog posts. 
+                                            We welcome diverse perspectives and quality content across various topics.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 2 -->
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#faq2" aria-expanded="false">
+                                            Do you accept guest posts?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Yes! We're always looking for quality guest posts. Please contact us with your 
+                                            ideas and we'll get back to you with our submission guidelines.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 3 -->
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#faq3" aria-expanded="false">
+                                            How often is new content published?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            We publish new content regularly, typically several times per week. 
+                                            Follow us on social media or subscribe to our newsletter to stay updated.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 4 -->
+                                <div class="accordion-item border-0">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#faq4" aria-expanded="false">
+                                            Can I request specific topics?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Absolutely! We love hearing topic suggestions from our community. 
+                                            Send us your ideas through the contact form above.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

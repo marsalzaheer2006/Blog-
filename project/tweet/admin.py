@@ -4,7 +4,7 @@ from django.contrib.admin import AdminSite
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
-from .models import Tweet, BlogPost
+from .models import Tweet, BlogPost, ContactMessage
 
 # Custom Admin Site that only allows superusers
 class SuperUserAdminSite(AdminSite):
@@ -57,6 +57,7 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 # Register models with the custom admin site
 admin_site.register(Tweet)
+admin_site.register(ContactMessage)
 admin_site.register(User)
 admin_site.register(Group)
 

@@ -66,7 +66,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # In a real application, you would send an email here
+            form.save()
             messages.success(request, 'Thank you for your message! We will get back to you soon.')
             return redirect('contact')
     else:
